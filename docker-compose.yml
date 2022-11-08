@@ -8,7 +8,6 @@ services:
       - ./:/code
   redis:
     image: redis:alpine
-    name: redis
     ports:
       - 6379:6379
         
