@@ -1,13 +1,23 @@
 version: '3'
 services:
-  node:
-    image: bharathsharath/node
-    ports:
-      - 80:3000
-    volumes:
-      - ./:/code
-  redis:
-    image: redis:alpine
-    ports:
-      - 6379:6379
-        
+    app:
+        image: demo
+        volumes:
+            - ./:/usr/src/app
+            - /usr/src/app/node_modules
+        ports:
+            - 8081:3000
+        links:
+            - mongo
+        depends_on:
+            - redis
+    mongo:
+        container_name: mongo-services
+        image: bharathsharath/mongo
+        ports:
+            - 27017:27017
+    redis:
+        image: redis:alpine
+        container_name: session
+        ports:
+            - 6379:6379
